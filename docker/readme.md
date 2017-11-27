@@ -1,9 +1,16 @@
 ### docker 基础操作
 
 安装
+
+   linux
     
     https://docs.docker.com/engine/installation/
     
+   windows 
+    
+    下载 docker toolbox   
+    
+   
 构建镜像启动容器
 
       docker build -t friendlyname .  # Create image using this directory's Dockerfile
