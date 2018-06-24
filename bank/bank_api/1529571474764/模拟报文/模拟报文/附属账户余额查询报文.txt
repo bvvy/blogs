@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="GBK"?>
+<stream>
+	<action>DLSBALQR</action>
+		<userName>yangwp</userName><!--登录名 varchar(30)-->
+<accountNo>8110714013401223479</accountNo><!--主体账号varchar(19)-->
+<subAccNo>3110710041994033745</subAccNo><!--附属账号varchar(19)-->
+</stream>

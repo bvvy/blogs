@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="GBK"?>
+<stream>
+	<action>DLB2BSOP</action>
+	<userName>dm1-zl</userName>
+	<mctTnTime>20180201 11:45:02</mctTnTime>
+	<clientID>20180201multiple301</clientID>
+	<paySeqNo>SWFT20180201J0000000011170</paySeqNo>
+	<oppAccNo>3110710041854034406</oppAccNo>
+	<oppAccNm>跨境优化2在线申请1-直联</oppAccNm>
+	<cryType>SGD</cryType>
+	<payerName>PAYPAL INCNO.27 JINRONG STBEIJING
+CHINA</payerName>
+	<payBkName>COMMCNSHXXX</payBkName>
+	<buyType></buyType>
+	<payType>O</payType>
+	<txCode1>121010</txCode1>
+	<txAmt1>1000</txAmt1>
+	<txRem1>一般贸易货款</txRem1>
+	<txCode2></txCode2>
+	<txAmt2></txAmt2>
+	<txRem2></txRem2>
+	<billNo></billNo>
+	<country>IDN</country>
+	<isRef>N</isRef>
+	<opperType>2</opperType>
+	<authOrmctno>10002883</authOrmctno>
+</stream>
+授权模式，自行申报，优化3的美元来账信息如下：解付客户流水20180202multiple103//20180202multiple208//20180202multiple209
+
+SWFT20180131J0000000017861|20180131|6221662216782216|USD|300.50|3110710042314034076|CBEC000000||||COMMCNSHXXX|CIBKCNBJXXX||0.00|kjyh|PAYPAL INCNO.27 JINRONG STBEIJINGCHINA
+SWFT20180131J0000000017867|20180131|6221662216782216|USD|300.51|3110710042314034076|CBEC000000||||COMMCNSHXXX|CIBKCNBJXXX||0.00|yhcs|PAYPAL INCNO.27 JINRONG STBEIJINGCHINA
+SWFT20180131J0000000017889|20180131|6221662216782216|USD|300.10|3110710042314034076|CBEC000000||||COMMCNSHXXX|CIBKCNBJXXX||0.00|kjyh|PAYPAL INCNO.27 JINRONG STBEIJINGCHINA
+
+
+
+授权模式，自行申报，优化3的日元来账信息如下解付客户流水20180202multiple107//20180202multiple303//20180202multiple304//20180202multiple305
+SWFT20180201J0000000012835|20180201|733801|JPY|50004.00|3110710042414034286|||||BOTKJPJTXXX|CIBKCNBJXXX||0.00|riyuanhuikuan50004|riyuanhuikuan50004|
+SWFT20180201J0000000012830|20180201|733801|JPY|50003.00|3110710042414034286|||||BOTKJPJTXXX|CIBKCNBJXXX||0.00|riyuanhuikuan50003|riyuanhuikuan50003
+SWFT20180201J0000000012826|20180201|733801|JPY|50002.00|3110710042414034286|||||BOTKJPJTXXX|CIBKCNBJXXX||0.00|riyuanhuikuan50002|riyuanhuikuan50002
+SWFT20180201J0000000012823|20180201|733801|JPY|50001.00|3110710042414034286|||||BOTKJPJTXXX|CIBKCNBJXXX||0.00|riyuanhuikuan50001|riyuanhuikuan50001
+
+授权模式，非自行申报，优化2
+
+
+
+
+授权模式，自行申报，优化3结汇3110710042334035188结汇丹麦克朗5.25成功结汇流水20180202jh0421
+                                      结汇丹麦克朗15.25成功结汇流水20180202jh0422
+                                      结汇丹麦克朗25.25成功结汇流水20180202jh0423
+                   3110710042314034076结汇美元5.25成功，结汇流水0180202jh0424
+                                      结汇美元15.25成功，结汇流水0180202jh0425
+                   3110710042414034286结汇日元5成功，结汇流水0180202jh0426
+                                      结汇日元15成功，结汇流水0180202jh0427
+                                      结汇日元25成功，结汇流水0180202jh0428
+          非自行申报，优化2结汇3110710041994033745结汇美元5.25成功，结汇流水20180202jh0429
+                                      结汇美元15.25成功，结汇流水20180202jh0430
+                   3110710041854034406结汇新加坡元5.25成功，结汇流水20180202jh0431        
+                                      结汇新加坡元15.25成功，结汇流水20180202jh0432
+                   3110710041794035176结汇瑞士法郎15.25成功，结汇流水20180202jh0434
+                                      结汇瑞士法郎25.25成功，结汇流水20180202jh0435
+                    
+非自行申报，优化2的美元来账信息如下,解付客户流水20180202multiple105//20180202multiple212
+SWFT20180131J0000000017923|20180131|6221662216782216|USD|200.10|3110710041994033745|CBEC000000||||COMMCNSHXXX|CIBKCNBJXXX||0.00|kjyh|PAYPAL INCNO.27 JINRONG STBEIJINGCHINA
+SWFT20180201J0000000012554|20180201|6221662216782218|USD|301.40|3110710041994034402|||||COMMCNSHXXX|CIBKCNBJXXX||0.00|dm|PAYPAL INCNO.27 JINRONG STBEIJINGCHINA
+
+
+非授权模式，非自行申报，优化2的美元解付，解付客户流水20180202multiple222
+SWFT20180131J0000000027073|20180131|6221662216782218|USD|201.10|3110710041994033745|||||COMMCNSHXXX|CIBKCNBJXXX||0.00|kjyhcsdm|PAYPAL INCNO.27 JINRONG STBEIJINGCHINA
+
+  3110710041994033745结汇美元5.25成功结汇流水20180202jh0405
+                     结汇美元15.25成功结汇流水20180202jh0406
+                     结汇美元25.25成功结汇流水20180202jh0407
+  3110710041994034402结汇美元5.25成功结汇流水20180202jh0408
+                     结汇美元15.25成功结汇流水20180202jh0409
+                     结汇美元25.25成功结汇流水20180202jh0410
+3110710041854034406结汇新加坡元5.25成功结汇流水20180202jh0411
+                   结汇新加坡元15.25成功结汇流水20180202jh0412
+                   结汇新加坡元25.25成功结汇流水20180202jh0413
+3110710041794035176结汇瑞士法郎5.25成功结汇流水20180202jh0414
+                   结汇瑞士法郎15.25成功结汇流水20180202jh0415
+                   结汇瑞士法郎25.25成功结汇流水20180202jh0415
+                  

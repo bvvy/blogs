@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="GBK"?>
+<stream>
+	<action>DLSTRNDT</action>
+	<userName>kj5</userName><!--登录名 varchar(30)-->
+	<accountNo>8110762013600024422</accountNo><!--主体账号varchar(19)-->
+	<subAccNo></subAccNo><!--附属账号varchar(19)-->
+	<queryType></queryType><!--查询类型 varchar(1) 1：查询待调账交易明细 空：查询全部交易明细-->
+	<startDate>20210113</startDate><!--起始日期char(8)-->
+	<endDate>20210131</endDate><!--终止日期char(8)-->
+</stream>

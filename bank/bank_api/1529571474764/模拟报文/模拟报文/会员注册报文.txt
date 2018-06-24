@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="GBK"?>
+<stream>
+	<action>DLBREGSN</action>
+	<userName>kjyhcs2-zl</userName><!--登录名varchar(30)-->
+	<mainAccNo>8110714013401223479</mainAccNo><!--主体账号char(19)-->
+	<appFlag>2</appFlag><!--应用系统char(1)， 2：B2B电子商务；3：投标保证金-->
+	<accGenType>0</accGenType><!--附属账户生成方式char(1) ，0：自动输入 ；1：手动生成-->
+	<subAccNo></subAccNo><!--附属账号尾号 char(14)-->
+	<subAccNm>美元-直联</subAccNm><!--附属账户名称 varchar(122)-->
+	<accType>03</accType><!--附属账户类型 char(2)-->
+	<calInterestFlag>2</calInterestFlag><!--是否计算利息标志 char(1)， 0：不计息；1：不分段计息；2：分段计息-->
+	<interestRate>0.12</interestRate><!--默认计息利率 decimal(9.7)-->
+	<overFlag>1</overFlag><!--是否允许透支char(1)，0：不允许；1：限额透支；2：全额透支-->
+	<overAmt>500</overAmt><!--透支额度decimal(15.2)-->
+	<overRate>7.8</overRate><!--透支利率decimal(9.7)-->
+	<autoAssignInterestFlag>0</autoAssignInterestFlag><!--自动分配利息标示char(1)，0：否；1：是-->
+	<autoAssignTranFeeFlag>1</autoAssignTranFeeFlag><!--自动分配转账手续费标char(1)，0：否；1：是-->
+	<feeType>1</feeType><!--手续费收取方式 char(1)，0：不收取；1：实时收取；2：月末累计-->
+	<realNameParm>1</realNameParm><!--实名制更换char(1) ，0：账户名与账号全不换；1：账户名与账号全换；2：换账户名；3：换账号-->
+	<subAccPrintParm>1</subAccPrintParm><!--附属账户凭证打印更换 char(1)，0：全部显示；1：显示附属账户名和账号；2：显示实体账户名和账号；3：显示附属账户名和实体账号；4：显示实体账户名和附属账号；-->
+	<mngNode>211001</mngNode><!--会员确认中心char(6)-->
+	<vtlCustNm>美元-直联</vtlCustNm><!--客户名称 varchar(122)-->
+	<legalPersonNm>美元-直联</legalPersonNm><!--法人名称 varchar(122)-->
+	<custCertType>2</custCertType><!--客户证件类型 varchar(1) 0：居民身份证；5：企业代码；-->
+	<custCertNo>20180129</custCertNo><!--客户证件号码 varchar(30) -->
+	<industyType>1</industyType><!--行业类型 char(6) -->
+	<branch>010</branch><!--所属机构 char(3) -->
+	<commAddress>北京市</commAddress><!--通讯地址 varchar(152) -->
+	<list name="VilcstDataList">
+		<row>
+			<contactName>美元-直联</contactName><!--联系人姓名 varchar(122) -->
+			<contactPhone>01085503599</contactPhone><!--联系电话 varchar(20) -->
+			<mailAddress>20191122ces01@126.com</mailAddress><!--邮件地址 varchar(152) -->
+		</row>
+	</list>
+</stream> 

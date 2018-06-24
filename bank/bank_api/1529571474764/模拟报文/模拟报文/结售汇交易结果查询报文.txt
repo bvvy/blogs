@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="GBK"?>
+<stream>
+<action>DLB2BEXQ</action>
+<userName></userName><!--登录名varchar(30)-->
+<clientID></clientID><!--客户流水号 char(20)-->
+<tranType></tranType><!--交易类型 char(2),JH:结汇（目前只支持结汇）;GH:购汇 -->
+</stream>
+
+
+<?xml version="1.0" encoding="GBK"?>
+<stream>
+<action>DLB2BEXQ</action>
+<userName>yangwp</userName><!--登录名varchar(30)-->
+<clientID>20180129single1001</clientID><!--客户流水号 char(20)-->
+<tranType>JH</tranType><!--交易类型 char(2),JH:结汇（目前只支持结汇）;GH:购汇 -->
+</stream>

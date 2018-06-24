@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="GBK"?>
+<stream>
+	<action>DLB2BSOP</action>
+	<userName>Web_B2c</userName>
+	<mctTnTime>20180119 09:48:50</mctTnTime>
+	<clientID>0410SLZSO180118031</clientID>
+	<paySeqNo>SWFT20180116J100000000002</paySeqNo>
+	<oppAccNo>3110210002700000004</oppAccNo>
+	<oppAccNm>美元一般账户1</oppAccNm>
+	<cryType>USD</cryType>
+	<payerName>美国</payerName>
+	<payBkName>美国银行</payBkName>
+	<buyType></buyType>
+	<payType>A</payType>
+	<txCode1>121990</txCode1>
+	<txAmt1>567</txAmt1>
+	<txRem1>交易附言1</txRem1>
+	<txCode2></txCode2>
+	<txAmt2></txAmt2>
+	<txRem2></txRem2>
+	<billNo>501010</billNo>
+	<country>USA</country>
+	<isRef>Y</isRef>
+	<opperType>1</opperType>
+	<authOrmctno>10000410</authOrmctno>
+</stream>
+
+
+
+
+<?xml version="1.0" encoding="GBK"?>
+<stream>
+	<action>DLB2BSOP</action>
+	<userName>kjyhdm-zl</userName>
+	<mctTnTime>20180129 09:24:02</mctTnTime>
+	<clientID>20180129multiple001</clientID>
+	<paySeqNo>1801261030000041</paySeqNo>
+	<oppAccNo>3110710041994033745</oppAccNo>
+	<oppAccNm>测试自行发起交易</oppAccNm>
+	<cryType>USD</cryType>
+	<payerName>PAYPAL INCNO.27 JINRONG STBEIJING
+CHINA</payerName>
+	<payBkName>COMMCNSHXXX</payBkName>
+	<buyType></buyType>
+	<payType>O</payType>
+	<txCode1>121010</txCode1>
+	<txAmt1>2346</txAmt1>
+	<txRem1>一般贸易货款</txRem1>
+	<txCode2></txCode2>
+	<txAmt2></txAmt2>
+	<txRem2></txRem2>
+	<billNo></billNo>
+	<country>USA</country>
+	<isRef>N</isRef>
+	<opperType>2</opperType>
+	<authOrmctno>10002883</authOrmctno>
+</stream>
+
+
+
+未建立业务流程的解付
+<?xml version="1.0" encoding="GBK"?>
+<stream>
+	<action>DLB2BSOP</action>
+	<userName>kjyhdm-zl</userName>
+	<mctTnTime>20180129 09:24:02</mctTnTime>
+	<clientID>20180129multiple003</clientID>
+	<paySeqNo>SWFT20180126J0000000018117</paySeqNo>
+	<oppAccNo>3110710042314034076</oppAccNo>
+	<oppAccNm>优化3-授权</oppAccNm>
+	<cryType>USD</cryType>
+	<payerName>PAYPAL INCNO.27 JINRONG STBEIJING
+CHINA</payerName>
+	<payBkName>COMMCNSHXXX</payBkName>
+	<buyType></buyType>
+	<payType>O</payType>
+	<txCode1>121010</txCode1>
+	<txAmt1>235</txAmt1>
+	<txRem1>一般贸易货款</txRem1>
+	<txCode2></txCode2>
+	<txAmt2></txAmt2>
+	<txRem2></txRem2>
+	<billNo></billNo>
+	<country>USA</country>
+	<isRef>N</isRef>
+	<opperType>2</opperType>
+	<authOrmctno>10002884</authOrmctno>
+</stream>
