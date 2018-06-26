@@ -1,3 +1,4 @@
+
 = 供应链平台功能整理
 
 == 工作台 Desktop
@@ -62,136 +63,63 @@
 |6|付汇|
 |===
 
-
-[ditaa]
+[chart,pie,file="images/secim-2014-pie.png",opt="title=2014 YEREL SEÇİM SONUÇLARI"]
 ----
-                   +-------------+
-                   | Asciidoctor |-------+
-                   |  Diagram    |       |
-                   +-------------+       | PNG out
-                       ^                 |
-                       | ditaa in        |
-                       |                 v
- +--------+   +--------+----+    /----------------\
- |        | --+ Asciidoctor +--> |                |
- |  Text  |   +-------------+    |Beautiful output|
- |Document|   |   !magic!   |    |                |
- |     {d}|   |             |    |                |
- +---+----+   +-------------+    \----------------/
-     :                                   ^
-     |          Lots of work             |
-     +-----------------------------------+
+AKP,  45.6, orange
+CHP,  27.8,red
+MHP,  15.2
+BDP,  4.2
+SP,  2
 ----
 
-[erd]
+
+
+.ditaa Diagram Example
+[ditaa,file="images/ditaa-example.png"]
+----
+    +--------+   +-------+    +-------+
+    |        |---+ ditaa +--->|       |
+    |  Text  |   +-------+    |diagram|
+    |Document|   |!magic!|    |       |
+    |     {d}|   |       |    |       |
+    +---+----+   +-------+    +-------+
+        :                         ^
+        |       Lots of work      |
+        +-------------------------+
 ----
 
-title {label: "nfldb Entity-Relationship diagram (condensed)", size: "20"}
+[math,file="images/tex-formula.png"]
+--
+\begin{align}
+\dot{x} & = \sigma(y-x) \\
+\dot{y} & = \rho x - y - xz \\
+\dot{z} & = -\beta z + xyp
+\end{align}
+--
 
-# Nice colors from Erwiz:
-# red #fcecec
-# blue #ececfc
-# green #d0e0d0
-# yellow #fbfbdb
-# orange #eee0a0
+[tree,file="images/tree-view.png"]
+--
+#src
+##main
+###java
+####com
+#####kodcu
+######App.java
+###resources
+####css
+#####style.css
+####js
+#####script.js
+####images
+#####image.png
+--
 
-# Entities
 
-[player] {bgcolor: "#d0e0d0"}
-  *player_id {label: "varchar, not null"}
-  full_name {label: "varchar, null"}
-  team {label: "varchar, not null"}
-  position {label: "player_pos, not null"}
-  status {label: "player_status, not null"}
-
-[team] {bgcolor: "#d0e0d0"}
-  *team_id {label: "varchar, not null"}
-  city {label: "varchar, not null"}
-  name {label: "varchar, not null"}
-
-[game] {bgcolor: "#ececfc"}
-  *gsis_id {label: "gameid, not null"}
-  start_time {label: "utctime, not null"}
-  week {label: "usmallint, not null"}
-  season_year {label: "usmallint, not null"}
-  season_type {label: "season_phase, not null"}
-  finished {label: "boolean, not null"}
-  home_team {label: "varchar, not null"}
-  home_score {label: "usmallint, not null"}
-  away_team {label: "varchar, not null"}
-  away_score {label: "usmallint, not null"}
-
-[drive] {bgcolor: "#ececfc"}
-  *+gsis_id {label: "gameid, not null"}
-  *drive_id {label: "usmallint, not null"}
-  start_field {label: "field_pos, null"}
-  start_time {label: "game_time, not null"}
-  end_field {label: "field_pos, null"}
-  end_time {label: "game_time, not null"}
-  pos_team {label: "varchar, not null"}
-  pos_time {label: "pos_period, null"}
-
-[play] {bgcolor: "#ececfc"}
-  *+gsis_id {label: "gameid, not null"}
-  *+drive_id {label: "usmallint, not null"}
-  *play_id {label: "usmallint, not null"}
-  time {label: "game_time, not null"}
-  pos_team {label: "varchar, not null"}
-  yardline {label: "field_pos, null"}
-  down {label: "smallint, null"}
-  yards_to_go {label: "smallint, null"}
-
-[play_player] {bgcolor: "#ececfc"}
-  *+gsis_id {label: "gameid, not null"}
-  *+drive_id {label: "usmallint, not null"}
-  *+play_id {label: "usmallint, not null"}
-  *+player_id {label: "varchar, not null"}
-  team {label: "varchar, not null"}
-
-[meta] {bgcolor: "#fcecec"}
-  version {label: "smallint, null"}
-  season_type {label: "season_phase, null"}
-  season_year {label: "usmallint, null"}
-  week {label: "usmallint, null"}
-
-# Relationships
-
-player      *--1 team
-game        *--1 team {label: "home"}
-game        *--1 team {label: "away"}
-drive       *--1 team
-play        *--1 team
-play_player *--1 team
-
-game        1--* drive
-game        1--* play
-game        1--* play_player
-
-drive       1--* play
-drive       1--* play_player
-
-play        1--* play_player
-
-player      1--* play_player
-
-----
-
-[ditaa]
-....
-                   +-------------+
-                   | Asciidoctor |-------+
-                   |   diagram   |       |
-                   +-------------+       | PNG out
-                       ^                 |
-                       | ditaa in        |
-                       |                 v
- +--------+   +--------+----+    /---------------\
- |        | --+ Asciidoctor +--> |               |
- |  Text  |   +-------------+    |   Beautiful   |
- |Document|   |   !magic!   |    |    Output     |
- |     {d}|   |             |    |               |
- +---+----+   +-------------+    \---------------/
-     :                                   ^
-     |          Lots of work             |
-     +-----------------------------------+
-....
+[chart,pie,file="images/secim-2014-pie.png",opt="title=2014 YEREL SEÇİM SONUÇLARI"]
+--
+AKP,  45.6, orange
+CHP,  27.8,red
+MHP,  15.2
+BDP,  4.2
+SP,  2
+--
