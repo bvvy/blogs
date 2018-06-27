@@ -40,6 +40,7 @@ api管理:   restful + springfox
 
 文档管理: markdown / asciidoctor
 
+其他： lombok
 
 === 后期-微服务
 

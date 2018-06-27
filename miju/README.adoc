@@ -7,7 +7,6 @@
 
 == 客户管理 Customer
 
-=== 该公司下面的用户
 
 == 开票人管理 Manufacture
 
@@ -20,6 +19,27 @@
 == 风控管理 Order
 
 == 外汇管理 Exchange
+
+=== 表之间的关系
+
+image::images/exchange.png[]
+
+=== 表结构
+
+include::tables/exchange.adoc[]
+
+=== 流程
+
+国外转帐进入账户，自己进行转帐操作
+通过对接银行进行新增或者自己进行新增。
+（Exchange_Bank）
+新增完成之后产生一笔外汇，
+这笔外汇可以被认领
+
+结汇，新增的外汇可以结汇（Exchange_Bank_Settle,Exchange_Customer_Settle）
+
+
+
 
 == 退税管理 TaxRebate
 
@@ -46,9 +66,9 @@
 | scarlett8   | Woshictt5  |
 |  013yh@3miky.net  | Yehang1205  | http://mail.3miky.net/[mail Addr]
 |  admin | 12345678  | http://localhost:8080/login[System]
- |root|2017mj@sz!|120.79.32.147
+|root|2017mj@sz!|120.79.32.147
 |  Administrator | miju2018!| 119.23.48.17
- |  m | www.3miky.net| http://www.jsd.3miky.net/
+|  m | www.3miky.net| http://www.jsd.3miky.net/
 |深圳市蜜桔科技有限公司 | lxq929011|
 |===
 ==  名词解释
@@ -67,54 +87,3 @@
 |5|收汇|
 |6|付汇|
 |===
-
-[chart,pie,file="images/secim-2014-pie.png",opt="title=2014 YEREL SEÇİM SONUÇLARI"]
-----
-AKP,  45.6, orange
-CHP,  27.8,red
-MHP,  15.2
-BDP,  4.2
-SP,  2
-----
-
-
-
-.ditaa Diagram Example
-[ditaa,file="images/ditaa-example.png"]
-----
-    +--------+   +-------+    +-------+
-    |        |---+ ditaa +--->|       |
-    |  Text  |   +-------+    |diagram|
-    |Document|   |!magic!|    |       |
-    |     {d}|   |       |    |       |
-    +---+----+   +-------+    +-------+
-        :                         ^
-        |       Lots of work      |
-        +-------------------------+
-----
-
-[math,file="images/tex-formula.png"]
---
-\begin{align}
-\dot{x} & = \sigma(y-x) \\
-\dot{y} & = \rho x - y - xz \\
-\dot{z} & = -\beta z + xyp
-\end{align}
---
-
-[tree,file="images/tree-view.png"]
---
-#src
-##main
-###java
-####com
-#####kodcu
-######App.java
-###resources
-####css
-#####style.css
-####js
-#####script.js
-####images
-#####image.png
---
