@@ -1,4 +1,6 @@
-= 物流
+:sectnums:
+:toc: left
+= 系统
 
 == 前端
 语言： es6
@@ -18,7 +20,7 @@ i18n: vue-i18n
 
 == 后端
 
-=== 前期单应用系统
+=== 前期-单应用系统
 
 语言： java
 
@@ -39,7 +41,7 @@ api管理:   restful + springfox
 文档管理: markdown / asciidoctor
 
 
-=== 后期微服务
+=== 后期-微服务
 
 spring cloud
 

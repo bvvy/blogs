@@ -1,11 +1,13 @@
+:sectnums:
 
-= 供应链平台功能整理
+:toc: left 
+=  供应链平台功能整理
 
 == 工作台 Desktop
-消息和代办任务
 
 == 客户管理 Customer
-该公司下面的用户
+
+=== 该公司下面的用户
 
 == 开票人管理 Manufacture
 
@@ -18,7 +20,6 @@
 == 风控管理 Order
 
 == 外汇管理 Exchange
-
 
 == 退税管理 TaxRebate
 
@@ -45,6 +46,10 @@
 | scarlett8   | Woshictt5  |
 |  013yh@3miky.net  | Yehang1205  | http://mail.3miky.net/[mail Addr]
 |  admin | 12345678  | http://localhost:8080/login[System]
+ |root|2017mj@sz!|120.79.32.147
+|  Administrator | miju2018!| 119.23.48.17
+ |  m | www.3miky.net| http://www.jsd.3miky.net/
+|深圳市蜜桔科技有限公司 | lxq929011|
 |===
 ==  名词解释
 .名称解释
@@ -112,14 +117,4 @@ SP,  2
 #####script.js
 ####images
 #####image.png
---
-
-
-[chart,pie,file="images/secim-2014-pie.png",opt="title=2014 YEREL SEÇİM SONUÇLARI"]
---
-AKP,  45.6, orange
-CHP,  27.8,red
-MHP,  15.2
-BDP,  4.2
-SP,  2
 --
