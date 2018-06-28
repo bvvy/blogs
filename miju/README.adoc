@@ -1,18 +1,29 @@
 :sectnums:
-
 :toc: left 
 =  供应链平台功能整理
+描述信息
 
 == 工作台 Desktop
 
 == 客户管理 Customer
 
+=== 表关系
+
+image::images/customer.png[]
 
 == 开票人管理 Manufacture
 
 == 产品管理 Product
 
+=== 表关系
+
+image::images/product.png[]
+
 == 订单管理 Order
+
+=== 表关系
+
+image::images/order.png[]
 
 == 通关管理 Order
 
@@ -51,7 +62,13 @@ include::tables/exchange.adoc[]
 
 == 系统安全 Security
 
+=== 表关系
+
+image::images/system.png[]
+
 == 子账户管理
+
+=== 表关系
 
 == 数据报表
 
@@ -80,10 +97,11 @@ include::tables/exchange.adoc[]
 |1|营销客户|
 |1|营销leads|
 |1|开票人|
-|1| 待解付资金信息 | 转帐中
+|1| 待解付资金信息 | 转帐失败需要手动处理
 |2| 解付成功| 转帐成功
 |3|结汇| 把其他货币换成人民币
 |4|外汇认领|
 |5|收汇|
 |6|付汇|
+||出金|提现
 |===

@@ -5,9 +5,9 @@
 == 前端
 语言： es6
 
-基础框架:  vue vuex vue-router(webpack版本不兼容ie了)
+基础框架:  vue vuex vue-router
 
-组件库： iview iview-admin(不兼容ie)
+组件库： iview iview-admin
 
 图表:  echart/d3..
 
@@ -17,6 +17,7 @@ i18n: vue-i18n
 
 其他： qs lodash moment .. 
 
+不兼容ie 只能用edge 和其他主流浏览器
 
 == 后端
 
@@ -32,6 +33,8 @@ i18n: vue-i18n
 
 数据库： mysql
 
+搜索引擎: es
+
 登录： oauth2
 
 消息队列： rabbitMQ / kafka
@@ -42,14 +45,17 @@ api管理:   restful + springfox
 
 其他： lombok
 
-=== 后期-微服务
-
-spring cloud
-
-
-== 部署
 
 版本控制: github / gitlab
 
 ci： travis-ci  / gitlab-ci
+
+
+
+== 大后期-微服务
+
+spring cloud
+docker 
+kubernates
+
 
