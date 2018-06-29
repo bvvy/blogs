@@ -49,3 +49,51 @@ SP,  2
 ####images
 #####image.png
 --
+[plantuml, pic, png]
+--
+!pragma graphviz_dot jdot
+node node1
+node node2
+node1 --> node2
+--
+
+.The PlantUML block extension class
+[plantuml, sample-plantuml-diagram, png]
+--
+!pragma graphviz_dot jdot
+class BlockProcessor
+class PlantUmlBlock
+BlockProcessor *-- PlantUmlBlock
+--
+
+.The PlantUML block extension class
+[plantuml, state,  png]
+--
+!pragma graphviz_dot jdot
+Table: id:int;
+Table: name: varchar(255)
+Table: id:int;
+Table: name: varchar(255)
+
+Table2: name:varchar
+Table2: name:varchar
+Table2: name:varchar
+Table2: name:varchar
+
+Table1 -> Table3
+Table->Table2
+Table2->Table1
+--
+
+[plantuml, diagram-classes, png]     
+....
+!pragma graphviz_dot jdot
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+....
