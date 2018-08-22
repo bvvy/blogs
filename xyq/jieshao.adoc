@@ -41,6 +41,19 @@
 | 备注| remarks |
 |===
 
+.消息
+|===
+|名称 | 字段 | 解释
+|id | id |
+| 创建人 | fromName | from user name
+| 创建人 | fromId | from user id
+| 发给的人 | toUser |
+| 发给的人 | toId |
+| 创建时间 | cdt |
+| 内容  | content |
+| 读过 | readed |
+
+|===
 
 
 .摄影师/工作室/用户 user
