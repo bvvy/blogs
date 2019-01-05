@@ -1,0 +1,48 @@
+== Spring Mvc WebSocket
+
+=== 简介
+分为三个部分，websocket 就是普通的websocket。sockjs用于对老浏览器的兼容，如果不需要可以不使用。
+Stomp是对Websocket协议的包装，可以支持http等，它有以下优势，我们主讲这个。
+
+. 不需要定义消息格式.
+. Spring 中包含又Stomp client.
+. 可以和其他消息队列互相传递信息 （Kafka activeMq）.
+. 可以用@Controller 和 @MessageMapping指定
+. 可以用Spring Security 对消息加密.
+
+=== WebSocket
+
+=== SockJs
+
+=== Stomp 不与sockjs相关联
+spring启动支持
+
+[source,java]
+--
+
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/portfolio");
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/topic", "/queue");
+    }
+}
+
+--
+
+前端连接 使用@stomp/stompjs
+
+[source,javascript]
+--
+const client = Stomp.client('ws://localhost:8081/portfolio')
+const client.connect({}, (e) => {})
+
+--

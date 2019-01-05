@@ -1,0 +1,128 @@
+= Spring 分析
+由于现在用 Spring boot 多了 我们直接从Spring boot 开始分析Spring的内容 以及其他框架。
+
+== Spring Boot Get Start
+用Intellj idea new -> spring initilizer 选择
+
+== 代码跟踪
+[source,java]
+--
+public static void main(String[] args) throws Exception {
+    SpringApplication application = new SpringApplication(MyApplication.class);
+    // ... customize application settings here
+    application.run(args)
+  }
+
+--
+
+.SpringApplication
+[source,java]
+--
+ public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySources) {
+        //null
+ 		this.resourceLoader = resourceLoader;
+ 		Assert.notNull(primarySources, "PrimarySources must not be null");
+ 		// 启动类
+ 		this.primarySources = new LinkedHashSet<>(Arrays.asList(primarySources));
+ 		// 推断当前web容器的类型 是webmvc 还是webflux 判断DispatchHandler 和DispatchServlet <1>
+ 		this.webApplicationType = deduceWebApplicationType();
+ 		// 设置初始化 读取 meta-inf/spring.factory文件中的配置初始化 this.initializers
+ 		setInitializers((Collection) getSpringFactoriesInstances(
+ 				ApplicationContextInitializer.class));
+ 		//同上  this.listeners
+ 		setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
+ 		// 推断main所在的类
+ 		this.mainApplicationClass = deduceMainApplicationClass();
+ 	}
+
+--
+<1> Figure 1
+
+.getSpringFactoriesInstances
+[plantuml, diagram-classes, png]
+....
+!pragma graphviz_dot jdot
+participant SpringApplication
+
+SpringApplication -> SpringApplication:getSpringFactoriesInstances( type)
+activate SpringApplication #FFBBBB
+
+SpringApplication -> SpringApplication:getSpringFactoriesInstances(type,new Class[]{})
+activate SpringApplication #FFBBBB
+
+SpringApplication -> SpringFactoriesLoader: loadFactoryNames(type,classLoader)
+
+SpringFactoriesLoader -> SpringApplication: Set<String>
+
+deactivate SpringFactoriesLoader
+deactivate SpringApplication
+deactivate SpringApplication
+
+....
+
+.SpringApplication
+[source,java]
+--
+
+public ConfigurableApplicationContext run(String... args) {
+		StopWatch stopWatch = new StopWatch();
+		stopWatch.start();
+		ConfigurableApplicationContext context = null;
+		Collection<SpringBootExceptionReporter> exceptionReporters = new ArrayList<>();
+		// java.awt.headless -> true
+		configureHeadlessProperty();
+		//  持有 EventPublishingRunListener(springApplication,args) 和 logger
+		// 把把所有的listener 翻入 initialMulticaster
+		SpringApplicationRunListeners listeners = getRunListeners(args); // <1>
+		// EventPublishingRunListener.starting() initialMulticaster start todo 总共11个 需要了解每个listener作用
+		// RestartApplicationListener -> 重启  设置 System.setProperty("spring.devtools.restart.enabled", "false");关闭
+		listeners.starting();
+		try {
+			ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
+			ConfigurableEnvironment environment = prepareEnvironment(listeners,applicationArguments);
+			configureIgnoreBeanInfo(environment);
+			Banner printedBanner = printBanner(environment);
+			context = createApplicationContext();
+			exceptionReporters = getSpringFactoriesInstances(SpringBootExceptionReporter.class,
+					new Class[] { ConfigurableApplicationContext.class }, context);
+			prepareContext(context, environment, listeners, applicationArguments,printedBanner);
+			refreshContext(context);
+			afterRefresh(context, applicationArguments);
+			stopWatch.stop();
+			if (this.logStartupInfo) {
+				new StartupInfoLogger(this.mainApplicationClass).logStarted(getApplicationLog(), stopWatch);
+			}
+			listeners.started(context);
+			callRunners(context, applicationArguments);
+		}
+		catch (Throwable ex) {
+			handleRunFailure(context, ex, exceptionReporters, listeners);
+			throw new IllegalStateException(ex);
+		}
+		try {
+			listeners.running(context);
+		}
+		catch (Throwable ex) {
+			handleRunFailure(context, ex, exceptionReporters, null);
+			throw new IllegalStateException(ex);
+		}
+		return context;
+	}
+
+--
+
+==  记录
+
+[source,java]
+--
+// need read BeanUtils
+BeanUtils.instantiateClass();
+// need read Exception
+new RuntimeException().getStackTrace();
+// 计算时间
+new StopWatch()
+// to generate diagram
+yfiles
+
+devtools  base on livereload
+--
