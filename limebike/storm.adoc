@@ -1,0 +1,28 @@
+= Storm Log Analyze
+
+== 流程
+
+通过logstash收集日志到 kafka中,
+storm从kafka中实时读取数据分析处理,扔到elasticsearch中,
+最后通过kibana来展示图表数据。
+
+[plantuml,a,png]
+--
+!pragma graphviz_dot jdot
+
+node kafka
+agent logstash
+node storm
+file logs
+database es
+card kibana
+
+logs --> logstash:收集
+logstash --> kafka: 传递
+kafka --> storm: 传递分析
+storm --> es:存储
+es -> kibana: web展示
+
+--
+
+
