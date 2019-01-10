@@ -1,0 +1,15 @@
+= docker 使用和操作
+
+== 安装
+
+windows 下载 docker for windows
+
+== 命令
+
+=== run
+
+|===
+| 常用参数 | 详细 |  解释
+
+| -d | detach | Run container in background and  print container ID
+
