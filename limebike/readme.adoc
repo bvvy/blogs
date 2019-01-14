@@ -94,5 +94,5 @@ scooter 组成： 中控、电控、电机、大电池、以及其他常见部�
 .. 对不合格的车辆解绑重绑
 . 装柜运输
 
-
+docker run -d  --name=filebeat  --user=root --volume="/var/lib/docker/containers:/var/lib/docker/containers:ro" --volume="/var/run/docker.sock:/var/run/docker.sock:ro"  docker.elastic.co/beats/filebeat:6.5.4 filebeat -e -strict.perms=false  -E output.elasticsearch.hosts=["elasticsearch:9200"]
 
