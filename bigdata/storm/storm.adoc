@@ -1,0 +1,128 @@
+:sectnums:
+== 日志系统需要的功能
+
+=== 方案与流程
+
+
+==== 使用ELKB整套解决方案
+
+. E：elasticsearch 用于存储. ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个    分布式多用户能力的全文搜索引擎，基于RESTful web接口。
+. L:   logstash 数据转换
+. K:   kibana 页面的展示
+. B:   beat 日志的收集
+
+==== 整个流程:
+
+Beat收集 -> logstash数据转换 -> 存入 elasticsearch -> kibana展示
+
+=== 需要的功能
+
+==== google登录或者用户账号管理
+
+. 简单方式  购买elk stack 的 security功能,该功能支持RBAC权限控制
+. 稍微复杂 : 额外开发一个页面来登录，成功后nginx来转发到这个项目里面
+
+==== 界面改为lime标志
+把源码clone下来改掉页面样式,重新打包.项目是使用nodejs来编写的
+
+==== 评估node.js的漏洞风险
+
+Node.js 是一个让 JavaScript 运行在服务端的开发平台，它让 JavaScript 成为与PHP、Python、Perl、Ruby 等服务端语言平起平坐的脚本语言。 [1]  发布于2009年5月，由Ryan Dahl开发，实质是对Chrome V8引擎进行了封装
+拥有强大的社区支持，如果遇到问题都可以被及时解决。
+
+==== 评估lucene或者其他持久化工具的风险
+
+elasticsearch 用于存储. ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个    分布式多用户能力的全文搜索引擎，基于RESTful web接口。
+有强大的elastic公司支撑，强大的社区维护。
+
+==== 日志查看
+===== 按ip查看
+
+beat 收集时可以收集ip地址或是主机名，
+我们可以通过ip地址或者主机名字建立起filter或者直接以ip地址作为index名字
+
+===== 按事务名称查看，每个事务可以独立查看相关日志
+
+事务只有id 没有名称，我们在日志中加入 txid字段信息,并把这个字段做为es的field，
+按照这个txid字段进行搜索就能独立查看每个事务的日志
+
+===== 能否自动实现事务失败后的预警
+
+在事务成功失败是，在日志中加入 tx_status字段标识事务的成功或失败
+
+可以预先在kibana中建立事务失败的 visualize
+
+===== 能否实现storm节点挂机后的预警
+
+storm节点挂机后会反应在numbus中的nimbus.log中,我们只需要抓取nimbus.log
+获取其中的not alive状态的日志
+
+===== 事务失败 | 成功查看
+
+在事务成功失败是，在日志中加入 tx_status 的__field__标识事务的成功或失败
+
+===== 按时间段+事务查看
+
+每条日志都有一个时间,以那个时间作为一个__field__就可以根据这个时间来做筛选
+
+===== 可查看数据抽取效率和分析
+
+需要在数据抽取的开始和结束打印日志包含type为extract.
+然后建立起该类型的 visualize
+
+===== 事务耗时分析
+
+在事务开始和结束时都需要打印一条日志，并且日志上都有 txid
+通过这个日志打印的开始结束时间获取事务的耗时
+
+===== 持久化耗时分析
+
+需要在数据抽取的开始和结束打印日志包含type为persist.
+然后建立起该类型的 visualize
+
+===== JVM内存情况
+
+可使用 Metricbeat 和 Jolokia 监测 Java 应用,这个相对比较复杂
+
+===== 其他日志收集
+
+web日志，物联网应用日志.
+
+=== 总结
+
+==== 日志
+
+. 所有日志都需要一个类型和当前类型执行时的一个状态
+. 所有与事务有关的日志都需要含有一个事务的id和事务的尝试次数
+
+==== 格式
+
+===== 处理事务日志格式
+
+[source,log]
+--
+格式定义:  日期 类名 (行数) 线程 [日志级别] 事务id|事务尝试次数| 日志类型 | 事务状态 | 日志内容
+
+例如:
+开始:
+2019-01-17 12:30:45.331 s.StormDemo (3) Thread-4-test2_bolt-executor[2 2] [INFO] 1|3|transaction|start/ing/success/fail|this is other message.
+
+--
+
+===== 其他与事务无关日志
+
+[source,log]
+--
+格式定义:  日期 类名 (行数) 线程 [日志级别] 日志类型 |状态| 日志内容
+
+2019-01-17 12:30:45.331 s.StormDemo (3) Thread-4-test2_bolt-executor[2 2] [INFO] extract|start/ing/success/fail|this is other message.
+
+--
+
+===== 定义
+
+|===
+| 名字 | 已知可以选择的值 | 依次解释
+| 日志类型 | extract/transaction/persist | 数据抽取/事务/持久化
+| 日志状态 | start/ing/success/fail | 开始/运行在/成功/失败
+|===

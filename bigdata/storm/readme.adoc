@@ -42,9 +42,17 @@ NOTE: 需要你了解docker docker-compose基础
 == 基础概念
 
 . Nimbus：即Storm的Master，负责资源分配和任务调度。一个Storm集群只有一个Nimbus。
-. Supervisor：即Storm的Slave，负责接收Nimbus分配的任务，管理所有Worker，一个Supervisor节点中包含多个Worker进程。
-. Worker：工作进程，每个工作进程中都有多个Task。
-. Task：任务，在 Storm 集群中每个 Spout 和 Bolt 都由若干个任务（tasks）来执行。每个任务都与一个执行线程相对应。
+. Supervisor可理解为单机任务调度器，它负责监听Nimbus的任务调度，启动相应的Worker对
+            Nimbus分配的任务进行处理。同时，它也会监测由它启动的Worker的运行状态,一旦发现有Worker
+            处于非正常状态，就会杀掉该Worker，并将原来分配给该Worker的任务交还Nimbus进行重新分配。
+.. standalonesupervisor方法：它会创建一个实现了ISupervisor接口的对象，其中定义了一些常用方法。
+.. supervisordata方法则创建了一个映射集合，这是Supervisor中一个非常重要的数据结构，它包含了很多会被其他方法共享的成员。
+.. Supervisor用LocalState在本地保存了自己的ID信息、LocalAssignment信息以及有效的从Worker到端口号的映射关系
+. Worker：Storm中的Worker是实际执行Topology的**进程**，它由Supervisor启动，从ZooKeeper中获取分配到自身的所有Executor并启动这些Executor来执行。
+. Task：Storm中的Task是最小的执行单位。与Worker、Executor分别对应于进程和线程不同，Task只
+       是逻辑上的执行单位，它需要寄身于Executor中完成运行。一个Executor可以含有多个Task。用户
+       定义的Spout和Bolt对象都会被放置在Task上。当Executor收到属于某一个Task的消息时，就会调
+       用与该Task对应的Spout或Bolt对象的相关方法进行处理。
 . Topology：计算拓扑，Storm 的拓扑是对实时计算应用逻辑的封装，它的作用与 MapReduce 的任务（Job）很相似，区别在于 MapReduce 的一个 Job 在得到结果之后总会结束，而拓扑会一直在集群中运行，直到你手动去终止它。拓扑还可以理解成由一系列通过数据流（Stream Grouping）相互关联的 Spout 和 Bolt 组成的的拓扑结构。
 . Stream：数据流（Streams）是 Storm 中最核心的抽象概念。一个数据流指的是在分布式环境中并行创建、处理的一组元组（tuple）的无界序列。数据流可以由一种能够表述数据流中元组的域（fields）的模式来定义。
 . Spout：数据源（Spout）是拓扑中数据流的来源。一般 Spout 会从一个外部的数据源读取元组然后将他们发送到拓扑中。根据需求的不同，Spout 既可以定义为可靠的数据源，也可以定义为不可靠的数据源。一个可靠的 Spout 能够在它发送的元组处理失败时重新发送该元组，以确保所有的元组都能得到正确的处理；相对应的，不可靠的 Spout 就不会在元组发送之后对元组进行任何其他的处理。一个 Spout 可以发送多个数据流。
@@ -66,7 +74,12 @@ NOTE: 需要你了解docker docker-compose基础
 不讲
 
 === Trident
-Trident is an alternative interface to Storm. It provides exactly-once processing, "transactional" datastore persistence, and a set of common stream analytics operations.
+一套可选的接口
+
+worker之间通信 使用netty
+
+Nimbus服务接口是用Thrift的语法编写的，它定义了Nimbus提供的所有服务
+
 
 ==== 用法
 
