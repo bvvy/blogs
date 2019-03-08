@@ -1,28 +1,35 @@
-### linux 基本命令
+=== linux 基本命令
 
 1. 创建文件
 
     mkdir
-    
+
 2. 修改文件属主
-    ```
+---
+
     　chown [选项]... [所有者][:[组]] 文件...
-    
     　命令参数：
-    
     　　必要参数:
-    
     　　　　-c 显示更改的部分的信息
-    
     　　　　-f 忽略错误信息
-    
     　　　　-h 修复符号链接
-    
     　　　　-R 处理指定目录以及其子目录下的所有文件
-    
     　　　　-v 显示详细的处理信息
-    
     　　　　-deference 作用于符号链接的指向，而不是链接文件本身
-    ```
-    
-    
+---
+
+3.查找文件 find / -name httpd.conf　
+
+. 修改文件权限 chmod -x xxx.bash
+. ps查看进程
+
+=== 安装java
+
+. su -c "yum install java-1.8.0-openjdk"
+. su -c "yum install java-1.8.0-openjdk-devel"
+
+=== 安装postgresql
+
+==== 下载
+
+==== 远程访问

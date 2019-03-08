@@ -1,0 +1,32 @@
+== sentinl使用
+
+https://sentinl.readthedocs.io/en/latest/[官方地址]
+https://github.com/sirensolutions/sentinl[github地址]
+
+=== 下载
+通过插件安装命令安装,选择自己的版本
+[source,bash]
+--
+./bin/kibana-plugin install https://github.com/sirensolutions/sentinl/releases/download/tag-6.6.0/sentinl-v6.6.0.zip
+--
+安装后重启项目，就能看到sentinl的菜单
+
+=== 配置邮箱
+在config/kibana.yml中配置
+
+[source,yml]
+--
+sentinl:
+  settings:
+    email:
+      active: true
+      user: smtp_username
+      password: smtp_password
+      host: smtp.server.com
+      ssl: true
+    report:
+      active: true
+      tmp_path: /tmp/
+--
+
+=== new watcher

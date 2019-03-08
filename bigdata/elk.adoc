@@ -1,0 +1,118 @@
+= ELKB项目安装部署,插件开发
+
+基于6.6.0版本
+
+== 安装
+基于6.6.0版本
+
+https://www.elastic.co/downloads/past-releases[下载地址]
+
+分别下载 elasticsearch logstash kibana filebeat
+
+如果要下载开源版: 是需要下载 elasticsearch-oss logstash-oss kibana-oss
+
+== 运行
+
+=== elasticsearch
+
+https://www.elastic.co/cn/downloads/elasticsearch#[运行方式]
+
+=== kibana
+==== 运行
+kibana https://www.elastic.co/cn/downloads/kibana#[运行方式]
+
+==== 安装插件
+
+sentinl 监控插件
+[source,bash]
+--
+./kibana/bin/kibana-plugin install https://github.com/sirensolutions/sentinl/releases/download/tag-6.6.0-0/sentinl-v6.6.0.zip
+--
+
+auth 我们自己的登录插件
+
+. 先build我们自己的插件生成一个zip文件
+. 然后/bin/kibana-plugin install file:///zip文件地址
+
+安装后重启项目可以看到多了两个菜单
+
+==== 开发插件
+
+. 下载kibana源码 https://github.com/elastic/kibana[地址]
+. 改名源码文件夹为 kibana
+. 使源码和项目使这种位置关系
+
+    --kibana
+    --kibana-extra
+      -- plugin-foo
+      -- plugin-bar
+
+. 在plugin中启动项目  yarn start
+
+=== logstash
+
+==== 修改logstash.example.conf配置文件为logstash.conf 并把内容改成
+
+[source,conf]
+--
+input {
+  beats {
+    port => "5044"
+  }
+}
+filter {
+  grok {
+    match => { "message" => [
+      "%{DATA:create_time} \(%{DATA:classes}:%{NUMBER:line}\) \[%{DATA:level}\] \(%{DATA:thread}\) %{NUMBER:txid}\|%{NUMBER:attempt_id}\|%{WORD:message_type}\|%{WORD:status}\|%{NUMBER:elapsed}\|%{DATA:message}",
+      "%{DATA:create_time} \(%{DATA:classes}:%{NUMBER:line}\) \[%{DATA:level}\] \(%{DATA:thread}\) %{WORD:message_type}\|%{WORD:status}\|%{NUMBER:elapsed}\|%{DATA:message}",
+      "%{DATA:create_time} \(%{DATA:classes}:%{NUMBER:line}\) \[%{DATA:level}\] \(%{DATA:thread}\) %{GREEDYDATA:message}"
+    ] }
+    overwrite => [ "message" ]
+  }
+  date {
+    match => ["create_time", "yyyy-MM-dd HH:mm:ss,SSS"]
+  }
+  mutate {
+    convert => {
+      "line" => "integer"
+      "txid" => "integer"
+      "attempt_id" => "integer"
+      "elapsed" => "integer"
+    }
+  }
+}
+output {
+  elasticsearch {
+    hosts => ["localhost:9200"]
+    index => "%{[fields][project]}-%{+YYYY.MM.dd}"
+  }
+}
+
+--
+
+==== 启动
+
+bin/logstash -f logstash.conf
+
+=== filebeat
+
+在要收集文件日志的服务器上安装filebeat.
+修改filebeat.yml为以下内容
+[source,yml]
+--
+filebeat:
+  inputs:
+  - type: log
+    enabled: true
+    paths:
+    - /xx/xx/*.log #日志的位置
+fields: {project: "你的项目名称(英文小写,必填)"}
+output.logstash:
+  enabled: true
+  hosts:
+  - 127.0.0.1:5044 #logstash地址
+--
+
+=== 启动
+
+sudo ./filebeat -e -c filebeat.yml

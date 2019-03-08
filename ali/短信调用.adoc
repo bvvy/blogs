@@ -1,0 +1,22 @@
+= 阿里云短信
+
+== nodejs版本
+[source,js]
+--
+const client = new Core({
+        accessKeyId: alisms.accessKeyId,
+        accessKeySecret: alisms.accessSecret,
+        endpoint: alisms.endpoint,
+        apiVersion: alisms.apiVersion
+      });
+
+      const requestOption = {
+        method: 'POST'
+      };
+      const params = {
+        'PhoneNumbers': request.payload.phoneNumbers,
+        'TemplateCode': alisms.templateCode,
+        'SignName': alisms.signName
+      };
+      await client.request('SendSms', params, requestOption);
+--

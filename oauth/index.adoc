@@ -1,0 +1,7 @@
+= 涉及到的第三方登录
+
+== google登录
+
+https://developers.google.com/identity/sign-in/web/sign-in
+
+... not this
