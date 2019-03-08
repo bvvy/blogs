@@ -1,4 +1,4 @@
-= ELKB项目安装部署,插件开发
+= Elastic Stack部署
 
 基于6.6.0版本
 
@@ -17,37 +17,6 @@ https://www.elastic.co/downloads/past-releases[下载地址]
 
 https://www.elastic.co/cn/downloads/elasticsearch#[运行方式]
 
-=== kibana
-==== 运行
-kibana https://www.elastic.co/cn/downloads/kibana#[运行方式]
-
-==== 安装插件
-
-sentinl 监控插件
-[source,bash]
---
-./kibana/bin/kibana-plugin install https://github.com/sirensolutions/sentinl/releases/download/tag-6.6.0-0/sentinl-v6.6.0.zip
---
-
-auth 我们自己的登录插件
-
-. 先build我们自己的插件生成一个zip文件
-. 然后/bin/kibana-plugin install file:///zip文件地址
-
-安装后重启项目可以看到多了两个菜单
-
-==== 开发插件
-
-. 下载kibana源码 https://github.com/elastic/kibana[地址]
-. 改名源码文件夹为 kibana
-. 使源码和项目使这种位置关系
-
-    --kibana
-    --kibana-extra
-      -- plugin-foo
-      -- plugin-bar
-
-. 在plugin中启动项目  yarn start
 
 === logstash
 
@@ -96,6 +65,8 @@ bin/logstash -f logstash.conf
 
 === filebeat
 
+
+
 在要收集文件日志的服务器上安装filebeat.
 修改filebeat.yml为以下内容
 [source,yml]
@@ -113,6 +84,153 @@ output.logstash:
   - 127.0.0.1:5044 #logstash地址
 --
 
+并修改要收集日志的输出格式为
+
+pattern="%d (%c:%L) [%p] (%t) %m%n"
+
 === 启动
 
 sudo ./filebeat -e -c filebeat.yml
+
+
+=== kibana
+==== 运行
+kibana https://www.elastic.co/cn/downloads/kibana#[运行方式]
+
+==== 安装插件
+
+sentinl 监控插件
+[source,bash]
+--
+./kibana/bin/kibana-plugin install https://github.com/sirensolutions/sentinl/releases/download/tag-6.6.0-0/sentinl-v6.6.0.zip
+--
+
+auth 我们自己的登录插件
+
+. 先在contant.js中加入新的邮箱账号
+. 然后build我们自己的插件生成一个zip文件
+. 然后/bin/kibana-plugin install file:///zip文件地址
+
+
+
+安装后重启项目可以看到多了两个菜单 logout 和 sentinl
+
+==== kibana使用
+
+. 首先到management里面新建一个index pattern为你的project *
+. 然后新增visualize
+. 将添加到dashboard
+. 建立sentinl监控解释如下
+
+[source,json]
+--
+{
+  "actions": {
+    "Webhook_3c78d099-dd29-4762-872b-a89ccddd2ef2": {
+      "name": "sms webhook",
+      "throttle_period": "1m",
+      "webhook": {
+        "priority": "high",
+        "stateless": false,
+        "method": "GET",
+        "host": "localhost",
+        "port": "5601",
+        "path": "/kbn/api/auths/v1/sendSms", //短信地址
+        "params": {
+          "phoneNumbers": "15680740187", //手机号
+          "msg": "你的项目发生和重试，请及时查看", //短信模板里的msg
+          "name": "你的Storm" //短信模板里面的name
+        },
+        "auth": "",
+        "message": ""
+      }
+    },
+    "HTML_email_alarm_fcd62f2d-7911-4e04-8351-c0e8f5143837": {
+      "name": "HTML email alarm",
+      "throttle_period": "1m",
+      "email_html": {
+        "html": "\n<p>你的项目发生了重试</p>\n<p style=\"color:red;\">你的Storm项目上发生了重试，请及时查看</p>",//邮箱发送模板
+        "priority": "medium",
+        "stateless": false,
+        "to": "bvvy@foxmail.com", //收邮件地址
+        "from": "bvvy@qq.com", //发的地址
+        "subject": "你的项目发生了重试" //邮件标题
+      }
+    }
+  },
+  "input": {
+    "search": { // 查询满足的文档
+      "request": {
+        "index": [
+          "myproject*" //索引
+        ],
+        "body": {
+          "query": {
+            "bool": {
+              "filter": {  //过滤条件
+                "range": {
+                  "@timestamp": {  // 这代表两分钟前
+                    "gte": "now-2m/m",
+                    "lte": "now/m",
+                    "format": "epoch_millis"
+                  }
+                }
+              }
+            }
+          },
+          "size": 0,
+          "aggs": {
+            "dateAgg": {
+              "date_histogram": {
+                "field": "@timestamp",
+                "time_zone": "Europe/Amsterdam",
+                "interval": "2m",
+                "min_doc_count": 1
+              },
+              "aggs": {
+                "metricAgg": {
+                  "max": {
+                    "field": "attempt_id"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "script": {
+      "script": "payload.aggregations.dateAgg.buckets.some(b => b.metricAgg.value>=1)" //触发任务条件
+    }
+  },
+  "trigger": {
+    "schedule": {
+      "later": "every 2 minutes" // 每两分钟执行一次
+    }
+  },
+  "disable": false,
+  "report": false,
+  "title": "重试监控",
+  "save_payload": false,
+  "spy": false,
+  "impersonate": false
+}
+
+--
+
+
+==== 开发插件
+
+. 下载kibana源码 https://github.com/elastic/kibana[地址]
+. 改名源码文件夹为 kibana
+. 使源码和项目使这种位置关系
+
+    --kibana
+    --kibana-extra
+      -- plugin-foo
+      -- plugin-bar
+
+. 在plugin中启动项目  yarn start
+
