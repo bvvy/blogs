@@ -78,13 +78,20 @@ public ConfigurableApplicationContext run(String... args) {
 		// RestartApplicationListener -> 重启  设置 System.setProperty("spring.devtools.restart.enabled", "false");关闭
 		listeners.starting();
 		try {
+		// source(args) 和 args
 			ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
+			// 设置 propertySource 解析property方式 和 propertyResolver(解析的规则) 和 profile
 			ConfigurableEnvironment environment = prepareEnvironment(listeners,applicationArguments);
+			// 设置ignore.bean 为true
 			configureIgnoreBeanInfo(environment);
+			// banner
 			Banner printedBanner = printBanner(environment);
+			// 如果是web的话org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@3f0b0752
 			context = createApplicationContext();
+			// 添加一个exceptionReporter
 			exceptionReporters = getSpringFactoriesInstances(SpringBootExceptionReporter.class,
 					new Class[] { ConfigurableApplicationContext.class }, context);
+			// 准备上下文 初始化initializer
 			prepareContext(context, environment, listeners, applicationArguments,printedBanner);
 			refreshContext(context);
 			afterRefresh(context, applicationArguments);

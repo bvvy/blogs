@@ -1,0 +1,192 @@
+= vue.js源码
+
+== 获取源码
+直接使用npm
+
+== 开始
+
+=== 定义
+
+从core/instance/index.js开始
+
+定义Vue class
+[source,js]
+
+--
+function Vue (options) {
+  this._init(options)
+}
+
+initMixin(Vue)
+stateMixin(Vue)
+eventsMixin(Vue)
+lifecycleMixin(Vue)
+renderMixin(Vue)
+
+export default Vue
+
+--
+
+其中options有些什么值,我们先列出来,也就是new Vue()能传递的内容,可以从types/options.d.ts得到
+
+[source,js]
+--
+export interface ComponentOptions<
+  V extends Vue,
+  Data=DefaultData<V>,
+  Methods=DefaultMethods<V>,
+  Computed=DefaultComputed,
+  PropsDef=PropsDefinition<DefaultProps>,
+  Props=DefaultProps> {
+  data?: Data;
+  props?: PropsDef;
+  propsData?: object;
+  computed?: Accessors<Computed>;
+  methods?: Methods;
+  watch?: Record<string, WatchOptionsWithHandler<any> | WatchHandler<any> | string>;
+
+  el?: Element | string;
+  template?: string;
+  // hack is for funcitonal component type inference, should not used in user code
+  render?(createElement: CreateElement, hack: RenderContext<Props>): VNode;
+  renderError?: (h: () => VNode, err: Error) => VNode;
+  staticRenderFns?: ((createElement: CreateElement) => VNode)[];
+
+  beforeCreate?(this: V): void;
+  created?(): void;
+  beforeDestroy?(): void;
+  destroyed?(): void;
+  beforeMount?(): void;
+  mounted?(): void;
+  beforeUpdate?(): void;
+  updated?(): void;
+  activated?(): void;
+  deactivated?(): void;
+  errorCaptured?(err: Error, vm: Vue, info: string): boolean | void;
+
+  directives?: { [key: string]: DirectiveFunction | DirectiveOptions };
+  components?: { [key: string]: Component<any, any, any, any> | AsyncComponent<any, any, any, any> };
+  transitions?: { [key: string]: object };
+  filters?: { [key: string]: Function };
+
+  provide?: object | (() => object);
+  inject?: InjectOptions;
+
+  model?: {
+    prop?: string;
+    event?: string;
+  };
+
+  parent?: Vue;
+  mixins?: (ComponentOptions<Vue> | typeof Vue)[];
+  name?: string;
+  // TODO: support properly inferred 'extends'
+  extends?: ComponentOptions<Vue> | typeof Vue;
+  delimiters?: [string, string];
+  comments?: boolean;
+  inheritAttrs?: boolean;
+}
+
+--
+在import Vue from 'vue' 是会执行下面的initXxx方法
+而在new Vue({})时会执行this._init()
+
+=== initMixin
+[source,js]
+--
+Vue.prototype._init = function (options?: Object)
+--
+
+
+=== stateMixin
+[source,js]
+--
+  Object.defineProperty(Vue.prototype, '$data', dataDef)
+  Object.defineProperty(Vue.prototype, '$props', propsDef)
+  Vue.prototype.$set = set
+  Vue.prototype.$delete = del
+  Vue.prototype.$watch = function
+
+--
+
+=== eventMixin
+
+[source,js]
+--
+Vue.prototype.$on
+Vue.prototype.$once
+Vue.prototype.$off
+Vue.prototype.$emit
+--
+
+=== lifecycle
+
+[source,js]
+--
+Vue.prototype._update
+Vue.prototype.$forceUpdate
+Vue.prototype.$destroy
+--
+=== renderMixin
+
+[source,js]
+--
+Vue.prototype.$nextTick
+Vue.prototype._render
+Vue.prototype.$destroy
+--
+
+=== initGlobalAPI
+[source,js]
+--
+Object.defineProperty(Vue, 'config', configDef)
+Vue.util = {
+    warn,
+    extend,
+    mergeOptions,
+    defineReactive
+  }
+Vue.set = set
+Vue.delete = del
+Vue.nextTick = nextTick
+
+Vue.options = Object.create(null)
+ASSET_TYPES.forEach(type => {
+  Vue.options[type + 's'] = Object.create(null)
+})
+
+// this is used to identify the "base" constructor to extend all plain-object
+// components with in Weex's multi-instance scenarios.
+Vue.options._base = Vue
+
+extend(Vue.options.components, builtInComponents)
+
+Vue.use
+Vue.mixin
+Vue.extend
+Vue.component
+Vue.directive
+Vue.filter
+
+--
+=== index
+--
+
+Object.defineProperty(Vue.prototype, '$isServer', {
+  get: isServerRendering
+})
+
+Object.defineProperty(Vue.prototype, '$ssrContext', {
+  get () {
+    /* istanbul ignore next */
+    return this.$vnode && this.$vnode.ssrContext
+  }
+})
+
+// expose FunctionalRenderContext for ssr runtime helper installation
+Object.defineProperty(Vue, 'FunctionalRenderContext', {
+  value: FunctionalRenderContext
+})
+
+Vue.version = '__VERSION__'
+--
